@@ -8,7 +8,7 @@ interface TableProps {
 
 export function Table({ headings, children }: TableProps) {
   return (
-    <table className="w-full table-auto border-collapse overflow-scroll">
+    <table className="w-full border-collapse overflow-scroll">
       <thead className="bg-zinc-100 text-left text-sm text-zinc-500">
         <tr>
           {headings.map((heading: { title: string }, index: number) => {
