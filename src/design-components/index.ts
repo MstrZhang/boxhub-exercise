@@ -1,3 +1,4 @@
-export { Table } from './Table/Table';
-export { Card } from './Card/Card';
-export { Badge } from './Badge/Badge';
+export * from './Table/Table';
+export * from './Card/Card';
+export * from './Badge/Badge';
+export * from './TableFilters';
