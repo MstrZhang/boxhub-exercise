@@ -4,6 +4,7 @@ import {
   Badge,
   TableFilters,
   ChoiceList,
+  Thumbnail,
   useFilters,
 } from '../../design-components';
 import { Status, Order } from '../../@types';
@@ -101,6 +102,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
         <Table
           headings={[
             { title: 'ID' },
+            { title: 'Photo' },
             { title: 'Created' },
             { title: 'Status' },
             { title: 'Customer' },
@@ -120,11 +122,15 @@ export function OrdersTable({ orders }: OrdersTableProps) {
               condition,
               size,
               type,
+              photo,
             } = order;
 
             return (
               <Table.Row key={id} highlighted={order.status === Status.Pending}>
                 <Table.Cell className="font-semibold">{id}</Table.Cell>
+                <Table.Cell>
+                  <Thumbnail url={photo} alt={id} />
+                </Table.Cell>
                 <Table.Cell>{new Date(created).toDateString()}</Table.Cell>
                 <Table.Cell>
                   <Badge status={statusToBadgeStatus(status)}>
