@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Card,
   Table,
@@ -6,6 +7,7 @@ import {
   ChoiceList,
   Thumbnail,
   Map,
+  Popover,
   useFilters,
 } from '../../design-components';
 import { Status, Order } from '../../@types';
@@ -24,6 +26,12 @@ interface OrdersTableProps {
 }
 
 export function OrdersTable({ orders }: OrdersTableProps) {
+  const [openPopovers, setOpenPopovers] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    setOpenPopovers(Array(orders.length).fill(false));
+  }, [orders]);
+
   const filterKeys = [
     FilterKey.Status,
     FilterKey.Size,
@@ -115,7 +123,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
             { title: 'Map' },
           ]}
         >
-          {orders.map((order: Order) => {
+          {orders.map((order: Order, index: number) => {
             const {
               id,
               created,
@@ -125,10 +133,34 @@ export function OrdersTable({ orders }: OrdersTableProps) {
               condition,
               size,
               type,
-              photo,
-              origin_address,
-              shipping_address,
+              // photo is broken so being ommitted for now
+              origin_address: originAddress,
+              shipping_address: shippingAddress,
             } = order;
+
+            const mapActivator = (index: number) => {
+              return (
+                <button
+                  className="rounded text-blue-600 focus:ring-2"
+                  onClick={() =>
+                    setOpenPopovers((prevState) => {
+                      const copy = Array.from(prevState);
+                      return copy.map(
+                        (popover: boolean, popoverIndex: number) => {
+                          if (popoverIndex === index) {
+                            return !popover;
+                          } else {
+                            return false;
+                          }
+                        }
+                      );
+                    })
+                  }
+                >
+                  <MapTrifold size={24} />
+                </button>
+              );
+            };
 
             return (
               <Table.Row key={id} highlighted={order.status === Status.Pending}>
@@ -149,9 +181,16 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                 <Table.Cell>{size}</Table.Cell>
                 <Table.Cell>{type}</Table.Cell>
                 <Table.Cell>
-                  <button className="rounded text-blue-600 focus:ring-2">
-                    <MapTrifold size={24} />
-                  </button>
+                  <Popover
+                    active={openPopovers[index]}
+                    title={`#${id}`}
+                    activator={mapActivator(index)}
+                  >
+                    <Map
+                      originAddress={originAddress}
+                      shippingAddress={shippingAddress}
+                    />
+                  </Popover>
                 </Table.Cell>
               </Table.Row>
             );

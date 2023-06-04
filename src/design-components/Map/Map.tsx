@@ -3,8 +3,12 @@ import { useState, useEffect } from 'react';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { latLngBounds, LatLngBounds } from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Spinner } from '..';
+import classNames from 'classnames';
 
 interface MapProps {
+  width?: number;
+  height?: number;
   originAddress: string;
   shippingAddress: string;
 }
@@ -24,7 +28,12 @@ function LocationMarker({ geo }: { geo?: ProviderResult }) {
     </Marker>
   ) : null;
 }
-export function Map({ originAddress, shippingAddress }: MapProps) {
+export function Map({
+  width = 800,
+  height = 400,
+  originAddress,
+  shippingAddress,
+}: MapProps) {
   const [originGeo, setOriginGeo] = useState<ProviderResult>();
   const [shippingGeo, setShippingGeo] = useState<ProviderResult>();
   const [bounds, setBounds] = useState<LatLngBounds>();
@@ -50,19 +59,29 @@ export function Map({ originAddress, shippingAddress }: MapProps) {
     getAddressLngLat();
   }, []);
 
+  const mapClasses = classNames({
+    [`w-[${width}px]`]: width,
+    [`h-[${height}px]`]: height,
+    'h-full w-auto': !width || !height,
+  });
+
   return bounds ? (
-    <>
-      <MapContainer
-        className="h-full w-auto"
-        center={bounds.getCenter()}
-        bounds={bounds}
-        zoom={8}
-        scrollWheelZoom={false}
-      >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        <LocationMarker geo={originGeo} />
-        <LocationMarker geo={shippingGeo} />
-      </MapContainer>
-    </>
-  ) : null;
+    <MapContainer
+      className={mapClasses}
+      center={bounds.getCenter()}
+      bounds={bounds}
+      zoom={8}
+      scrollWheelZoom={false}
+    >
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <LocationMarker geo={originGeo} />
+      <LocationMarker geo={shippingGeo} />
+    </MapContainer>
+  ) : (
+    <div className={mapClasses}>
+      <div className="flex min-h-full flex-row items-center justify-center">
+        <Spinner />
+      </div>
+    </div>
+  );
 }

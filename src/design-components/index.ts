@@ -4,3 +4,5 @@ export * from './Badge/Badge';
 export * from './TableFilters';
 export * from './Thumbnail';
 export * from './Map';
+export * from './Popover';
+export * from './Spinner';
