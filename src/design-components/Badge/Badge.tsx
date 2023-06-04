@@ -8,7 +8,7 @@ interface BadgeProps {
 
 export function Badge({ children, status }: BadgeProps) {
   const badgeClassNames = classNames({
-    'inline px-2.5 py-0.5 rounded-full text-center text-sm bg-zinc-300': true,
+    'inline px-2.5 py-0.5 rounded-full text-center text-sm': true,
     'bg-green-400': status === 'success',
     'bg-yellow-400': status === 'attention',
     'bg-orange-400': status === 'warning',

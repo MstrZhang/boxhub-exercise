@@ -5,9 +5,11 @@ import {
   TableFilters,
   ChoiceList,
   Thumbnail,
+  Map,
   useFilters,
 } from '../../design-components';
 import { Status, Order } from '../../@types';
+import { MapTrifold } from '@phosphor-icons/react';
 import { statusToBadgeStatus, getStatusLabel } from './utils';
 
 enum FilterKey {
@@ -110,6 +112,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
             { title: 'Condition' },
             { title: 'Size' },
             { title: 'Type' },
+            { title: 'Map' },
           ]}
         >
           {orders.map((order: Order) => {
@@ -123,13 +126,16 @@ export function OrdersTable({ orders }: OrdersTableProps) {
               size,
               type,
               photo,
+              origin_address,
+              shipping_address,
             } = order;
 
             return (
               <Table.Row key={id} highlighted={order.status === Status.Pending}>
                 <Table.Cell className="font-semibold">{id}</Table.Cell>
                 <Table.Cell>
-                  <Thumbnail url={photo} alt={id} />
+                  {/* image URL from orders.json is broken */}
+                  <Thumbnail url={'https://picsum.photos/200'} alt={id} />
                 </Table.Cell>
                 <Table.Cell>{new Date(created).toDateString()}</Table.Cell>
                 <Table.Cell>
@@ -142,6 +148,11 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                 <Table.Cell>{condition}</Table.Cell>
                 <Table.Cell>{size}</Table.Cell>
                 <Table.Cell>{type}</Table.Cell>
+                <Table.Cell>
+                  <button className="rounded text-blue-600 focus:ring-2">
+                    <MapTrifold size={24} />
+                  </button>
+                </Table.Cell>
               </Table.Row>
             );
           })}
