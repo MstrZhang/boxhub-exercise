@@ -16,6 +16,8 @@ npm install
 npm run dev
 ```
 
+vite requires node.js version `14.18+`, `16+` to run so ensure your node is up to date
+
 ## Technologies Used
 
 **dependencies**
