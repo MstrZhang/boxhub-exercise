@@ -11,7 +11,7 @@ import {
   useFilters,
 } from '../../design-components';
 import { Status, Order } from '../../@types';
-import { MapTrifold } from '@phosphor-icons/react';
+import { MapPin } from '@phosphor-icons/react';
 import { statusToBadgeStatus, getStatusLabel } from './utils';
 
 enum FilterKey {
@@ -141,7 +141,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
             const mapActivator = (index: number) => {
               return (
                 <button
-                  className="rounded text-blue-600 focus:ring-2"
+                  className="rounded border border-neutral-200 bg-white p-2 text-slate-600 shadow-sm hover:bg-zinc-100 focus:ring-2"
                   onClick={() =>
                     setOpenPopovers((prevState) => {
                       const copy = Array.from(prevState);
@@ -157,7 +157,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
                     })
                   }
                 >
-                  <MapTrifold size={24} />
+                  <MapPin size={24} />
                 </button>
               );
             };
