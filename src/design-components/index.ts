@@ -6,3 +6,4 @@ export * from './Thumbnail';
 export * from './Map';
 export * from './Popover';
 export * from './Spinner';
+export * from './Page';

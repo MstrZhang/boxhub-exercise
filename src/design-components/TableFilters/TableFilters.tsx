@@ -11,7 +11,7 @@ export function TableFilters({ filters }: TableFiltersProps) {
   const [showFilterMenu, setShowFilterMenu] = useState<boolean>(false);
 
   return (
-    <div className="relative">
+    <div className="relative bg-white">
       <div className="flex flex-row-reverse p-2">
         <button
           className="rounded border border-slate-300 px-2 py-1 hover:bg-zinc-100"

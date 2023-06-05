@@ -13,7 +13,10 @@ export function Table({ headings, children }: TableProps) {
         <tr>
           {headings.map((heading: { title: string }, index: number) => {
             return (
-              <th key={`table-header-${index}`} className="p-2 font-medium">
+              <th
+                key={`table-header-${index}`}
+                className="px-4 py-2 font-medium"
+              >
                 {heading.title}
               </th>
             );

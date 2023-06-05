@@ -10,8 +10,8 @@ interface RowProps {
 
 export function Row({ children, selected, highlighted, onClick }: RowProps) {
   const rowClassNames = classNames({
-    'border-t border-slate-200 hover:cursor-pointer': true,
-    'hover:bg-zinc-100': !selected && !highlighted,
+    'border-t border-slate-200': true,
+    'hover:bg-zinc-100 bg-white': !selected && !highlighted,
     'bg-blue-100 hover:bg-blue-200': selected,
     'bg-orange-100 hover:bg-orange-200': highlighted,
   });
