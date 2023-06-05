@@ -12,7 +12,7 @@ export function TableFilterMenu({ filters }: TableFilterMenuProps) {
   );
 
   return (
-    <div className="absolute right-2 flex divide-x divide-slate-200 rounded-md bg-white shadow-lg">
+    <div className="absolute right-2 flex divide-x divide-slate-200 rounded-md border border-neutral-200 bg-white shadow-lg">
       <div className="flex flex-col p-4">
         <div className="text-sm font-medium text-slate-500">Filter by</div>
         {filters.map((filter: FilterConfig) => {

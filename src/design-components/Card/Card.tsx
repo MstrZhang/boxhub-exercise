@@ -7,7 +7,7 @@ interface CardProps {
 
 export function Card({ children, className }: CardProps) {
   const cardClasses = classNames(
-    'border border-neutral-200 rounded-xl shadow-lg shadow-neutral-300 overflow-hidden',
+    'border border-neutral-200 rounded-xl shadow-lg shadow-neutral-300',
     className
   );
 
