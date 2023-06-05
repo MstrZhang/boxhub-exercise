@@ -4,7 +4,6 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { latLngBounds, LatLngBounds } from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Spinner } from '..';
-import classNames from 'classnames';
 
 interface MapProps {
   width?: number;
@@ -59,26 +58,21 @@ export function Map({
     getAddressLngLat();
   }, []);
 
-  const mapClasses = classNames({
-    [`w-[${width}px]`]: width,
-    [`h-[${height}px]`]: height,
-    'h-full w-auto': !width || !height,
-  });
-
   return bounds ? (
-    <MapContainer
-      className={mapClasses}
-      center={bounds.getCenter()}
-      bounds={bounds}
-      zoom={8}
-      scrollWheelZoom={false}
-    >
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      <LocationMarker geo={originGeo} />
-      <LocationMarker geo={shippingGeo} />
-    </MapContainer>
+    <div style={{ height, width }}>
+      <MapContainer
+        style={{ height, width }}
+        center={bounds.getCenter()}
+        zoom={8}
+        scrollWheelZoom
+      >
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <LocationMarker geo={originGeo} />
+        <LocationMarker geo={shippingGeo} />
+      </MapContainer>
+    </div>
   ) : (
-    <div className={mapClasses}>
+    <div style={{ height, width }}>
       <div className="flex min-h-full flex-row items-center justify-center">
         <Spinner />
       </div>
